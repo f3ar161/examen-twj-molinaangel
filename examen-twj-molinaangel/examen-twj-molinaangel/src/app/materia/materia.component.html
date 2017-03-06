@@ -1,0 +1,122 @@
+<h1>{{title}}</h1>
+<h2>{{error}}</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <pre class="animated fadeInUp">
+        {{nuevaMateria | json}}
+      </pre>
+    </div>
+    <div class="col-sm-6">
+      <form class="animated bounceIn" (ngSubmit)="crearMateria(NuevaMateriaForm)" #NuevaMateriaForm="ngForm">
+        <div class="form-group">
+          <label>Materia</label>
+          <input required
+                 minlength="4"
+                 type="text"
+                 class="form-control"
+                 placeholder="Ingrese el nombre de la materia"
+                 name="nombreMateria"
+                 [(ngModel)]="nuevaMateria.nombreMateria"
+                 #nombreGrupo="ngModel"
+                 #nombreElm>
+          <input required
+                 minlength="4"
+                 type="text"
+                 class="form-control"
+                 placeholder="Ingrese el topico de la materia"
+                 name="topicoMateria"
+                 [(ngModel)]="nuevaMateria.topicoMateria"
+                 #topicoMateria="ngModel"
+                 #nombreElm>
+          <input required
+                 type="date"
+                 class="form-control"
+                 name="fechaCreacion"
+                 [(ngModel)]="nuevaMateria.fechaCreacion"
+                 #fechaCreacion="ngModel"
+                 #nombreElm>
+        </div>
+        <button [disabled]="disabledButtons.NuevaMateriaFormSubmitButton||!NuevaMateriaForm.valid" type="submit"
+                class="btn btn-block btn-success">Crear
+        </button>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <h1>{{nuevaMateria.nombreMateria}}</h1>
+      <h2>{{nuevaMateria.topicoMateria}}</h2>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12 animated flipInX" *ngFor="let materia of materias">
+      <div class="text-center">
+        <h3> Materia: {{materia.nombreMateria}}</h3>
+        <p> Tópico: {{materia.topicoMateria}}</p>
+        <p> Creación: {{materia.fechaCreacion}}</p>
+        <p> Nombre del grupo: {{materia.idGrupo.nombreGrupo}}</p>
+      </div>
+      <div class="row animated flipInY" [hidden]="!materia.formularioCerrado">
+        <div class="col-sm-5">
+          <button class="btn btn-block btn-info"
+                  (click)="materia.formularioCerrado = !materia.formularioCerrado"
+          >Actualizar
+          </button>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+          <button class="btn btn-block btn-danger" (click)="borrarMateria(materia.id)">Borrar</button>
+        </div>
+      </div>
+      <div class="div" [hidden]="materia.formularioCerrado">
+        <form action="">
+          <form class="animated bounceIn" (ngSubmit)="actualizarMateria(materia)" #NuevoGrupoForm="ngForm">
+            <div class="form-group">
+              <label>Materia</label>
+              <input required
+                     minlength="4"
+                     type="text"
+                     class="form-control"
+                     placeholder="Ingrese el nombre de la materia"
+                     name="nombreMateria"
+                     [(ngModel)]="materia.nombreMateria"
+                     #nombreGrupo="ngModel"
+                     #nombreElm>
+              <input required
+                     minlength="4"
+                     type="text"
+                     class="form-control"
+                     placeholder="Ingrese el topico de la materia"
+                     name="topicoMateria"
+                     [(ngModel)]="materia.topicoMateria"
+                     #topicoMateria="ngModel"
+                     #nombreElm>
+              <input required
+                     type="date"
+                     class="form-control"
+                     name="fechaCreacion"
+                     [(ngModel)]="materia.fechaCreacion"
+                     #fechaCreacion="ngModel"
+                     #nombreElm>
+            </div>
+            <button  type="submit"
+                    class="btn btn-block btn-success">Update
+            </button>
+            <button type="button"
+                    class="btn btn-block btn-warning"
+                    (click)="materia.formularioCerrado = !materia.formularioCerrado"
+            >
+              Cancelar
+            </button>
+          </form>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+<!--<router-outlet></router-outlet>-->
+

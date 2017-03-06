@@ -1,0 +1,109 @@
+<h1>{{title}}</h1>
+<h2>{{error}}</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <pre class="animated fadeInUp">
+        {{nuevoGrupo | json}}
+      </pre>
+    </div>
+    <div class="col-sm-6">
+      <form class="animated bounceIn" (ngSubmit)="crearGrupo(NuevoGrupoForm)" #NuevoGrupoForm="ngForm">
+        <div class="form-group">
+          <label>Grupo</label>
+          <input required
+                 minlength="4"
+                 type="text"
+                 class="form-control"
+                 placeholder="Ingrese el nombre del grupo"
+                 name="nombreGrupo"
+                 [(ngModel)]="nuevoGrupo.nombreGrupo"
+                 #nombreGrupo="ngModel"
+                 #nombreElm>
+          <input required
+                 minlength="4"
+                 type="number"
+                 class="form-control"
+                 placeholder="Ingrese el numero de estudiantes"
+                 name="numeroMaximoEstudiantes"
+                 [(ngModel)]="nuevoGrupo.numeroMaximoEstudiantes"
+                 #numeroMaximoEstudiantes="ngModel"
+                 #nombreElm>
+        </div>
+        <button [disabled]="disabledButtons.NuevoGrupoFormSubmitButton||!NuevoGrupoForm.valid" type="submit"
+                class="btn btn-block btn-success">Crear
+        </button>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <h1>{{nuevoGrupo.nombreGrupo}}</h1>
+
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12 animated flipInX" *ngFor="let grupo of grupos">
+      <div class="text-center">
+        <h3> Grupo: {{grupo.nombreGrupo}}</h3>
+        <p># Estudiantes: {{grupo.numeroMaximoEstudiantes}}</p>
+      </div>
+      <div class="row animated flipInY" [hidden]="!grupo.formularioCerrado">
+        <div class="col-sm-5">
+          <button class="btn btn-block btn-info"
+                  (click)="grupo.formularioCerrado = !grupo.formularioCerrado"
+          >Actualizar
+          </button>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+          <button class="btn btn-block btn-danger" (click)="borrarGrupo(grupo.id)">Borrar</button>
+        </div>
+        <div class="col-sm-12">
+          <a [routerLink]="[grupo.id,'materia']">Ir a Materias</a>
+        </div>
+      </div>
+      <div class="div" [hidden]="grupo.formularioCerrado">
+        <form action="">
+          <form class="animated bounceIn" (ngSubmit)="actualizarGrupo(grupo)" #NuevoGrupoForm="ngForm">
+            <div class="form-group">
+              <label>Grupo</label>
+              <input required
+                     minlength="4"
+                     type="text"
+                     class="form-control"
+                     placeholder="Ingrese el nombre del grupo"
+                     name="nombreGrupo"
+                     [(ngModel)]="grupo.nombreGrupo"
+                     #nombreGrupo="ngModel"
+                     #nombreElm>
+              <input required
+                     minlength="4"
+                     type="number"
+                     class="form-control"
+                     placeholder="Ingrese el numero de estudiantes"
+                     name="numeroMaximoEstudiantes"
+                     [(ngModel)]="grupo.numeroMaximoEstudiantes"
+                     #numeroMaximoEstudiantes="ngModel"
+                     #nombreElm>
+            </div>
+            <button [disabled]="disabledButtons.NuevoGrupoFormSubmitButton||!NuevoGrupoForm.valid" type="submit"
+                    class="btn btn-block btn-success">Update
+            </button>
+            <button type="button"
+                    class="btn btn-block btn-warning"
+                    (click)="grupo.formularioCerrado = !grupo.formularioCerrado"
+            >
+              Cancelar
+            </button>
+          </form>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+<!--<router-outlet></router-outlet>-->
+
