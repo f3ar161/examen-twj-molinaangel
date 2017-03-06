@@ -18,7 +18,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var MasterUrlService = (function () {
     function MasterUrlService() {
-        this._url = "https://ide.c9.io/f3ar161/examen-twj-molinaangel";
+        this._url = "https://examen-twj-molinaangel-fear161.c9users.io";
     }
     Object.defineProperty(MasterUrlService.prototype, "url", {
         get: function () {
